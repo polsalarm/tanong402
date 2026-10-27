@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Rust / Soroban build
+target/
+**/target/
+**/test_snapshots/
+
+# Env / secrets
+.env
+.env.local
+.env.*.local
+!.env.example
+*.pem
+*.key
+
+# Build output
+dist/
+build/
+.vercel/
+.turbo/
+*.tsbuildinfo
+
+# Test artifacts
+coverage/
+playwright-report/
+test-results/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+*.log
