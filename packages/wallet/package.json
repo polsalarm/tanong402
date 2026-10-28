@@ -1,0 +1,24 @@
+{
+  "name": "@tanong/wallet",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "fake-indexeddb": "^6.2.6",
+    "vitest": "^3"
+  },
+  "dependencies": {
+    "@stellar/stellar-sdk": "^17.4.0",
+    "@tanong/shared": "workspace:*",
+    "@x402/core": "2.28.0",
+    "@x402/fetch": "2.28.0",
+    "@x402/stellar": "2.28.0"
+  }
+}
