@@ -1,0 +1,27 @@
+{
+  "name": "tanong402",
+  "private": true,
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "turbo run dev --parallel --filter=@tanong/web --filter=@tanong/api",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "contracts:test": "cd contracts && cargo test",
+    "contracts:build": "cd contracts && stellar contract build",
+    "db:generate": "pnpm --filter @tanong/api db:generate",
+    "db:migrate": "pnpm --filter @tanong/api db:migrate",
+    "agent": "pnpm --filter @tanong/agent-cli start",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "prettier": "^3.9.10",
+    "turbo": "^2.11.10",
+    "typescript": "^5.9.3"
+  }
+}
