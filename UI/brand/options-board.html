@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Tanong402 · splash, logo and pattern options</title>
+<style>
+  :root { --night:#07090f; --silver:#e6e9ee; --muted:#9aa3b2; --blue:#8fb3ff; --ease:cubic-bezier(.22,1,.36,1); }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: var(--font-sans, Inter, system-ui, sans-serif); color: var(--foreground, #e9ecf1); }
+  .wrap { display: grid; gap: 28px; }
+  h2 { margin: 0 0 4px; font-size: 18px; font-weight: 600; letter-spacing: -.02em; }
+  .sub { margin: 0 0 12px; font-size: 13px; color: var(--muted-foreground, #9aa3b2); }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
+  .grid5 { display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr)); gap: 10px; }
+  .grid-p { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+  .tag { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #9aa3b2; }
+  .tag b { color: #e9ecf1; letter-spacing: 0; text-transform: none; font-size: 13px; font-weight: 600; }
+  .note { font-size: 12px; color: #7c8597; margin-top: 6px; line-height: 1.45; }
+
+  /* ── Splash players ─────────────────────────────────────────── */
+  .player { position: relative; height: 380px; border-radius: 18px; overflow: hidden; background: radial-gradient(ellipse at 50% 48%, #151c2a 0%, #0b0f1a 45%, #07090f 100%); }
+  .player .label { position: absolute; left: 14px; top: 12px; z-index: 20; }
+  .player button { position: absolute; right: 12px; bottom: 12px; z-index: 20; border: 1px solid #c9cfd833; background: #111726; color: #c9cfd8; border-radius: 999px; padding: 7px 13px; font: 600 11px var(--font-sans, Inter, sans-serif); cursor: pointer; }
+  .page { position: absolute; inset: 0; padding: 22px 22px; background: radial-gradient(ellipse at 60% -10%, #252e43 0, transparent 50%), linear-gradient(180deg, #0b0f1a, #07090f); opacity: 0; }
+  .page .nav { display: flex; align-items: center; gap: 8px; }
+  .page .nav svg { width: 22px; height: 22px; opacity: 0; }
+  .page .nav span { font-weight: 650; letter-spacing: -.04em; background: linear-gradient(100deg,#f5f7fa,#c9cfd8 40%,#8e97a6 70%,#e6e9ee); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .page h3 { margin: 70px 0 0; font-size: 40px; line-height: .95; letter-spacing: -.05em; font-weight: 600; }
+  .page h3 em { font-style: normal; background: linear-gradient(110deg,#f5f7fa,#c9cfd8 39%,#8e97a6 67%,#e6e9ee); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .page p { color: #9aa3b2; font-size: 13px; margin: 12px 0 0; }
+  .stage { position: absolute; inset: 0; display: grid; place-items: center; }
+  .word { position: absolute; left: 0; right: 0; top: 232px; text-align: center; opacity: 0; }
+  .word strong { font-size: 20px; letter-spacing: -.05em; font-weight: 620; background: linear-gradient(100deg,#f5f7fa,#c9cfd8 42%,#8e97a6 70%,#e6e9ee); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .word small { font-size: 9px; letter-spacing: .14em; color: #9aa3b2; margin-left: 3px; }
+
+  /* Splash A — molten pool lifts into the mark (Codex). */
+  .A .pool { position: absolute; left: 50%; top: 220px; width: 220px; height: 24px; border-radius: 50%; translate: -50% -50%; background: linear-gradient(180deg,#f5f7fa,#c9cfd8 20%,#8e97a6 62%,#545e6f); box-shadow: 0 0 22px #c9cfd833, 0 0 90px #8fb3ff22; opacity: 0; }
+  .A .ripple { position: absolute; left: 50%; top: 220px; width: 110px; height: 22px; translate: -50% -50%; border: 1px solid #e6e9ee73; border-radius: 50%; opacity: 0; }
+  .A .mark { position: absolute; left: 50%; top: 150px; width: 110px; height: 110px; translate: -50% -50%; opacity: 0; filter: drop-shadow(0 5px 24px #c9cfd82a); }
+  .A.play .pool { animation: a-pool 1.3s var(--ease) .05s forwards; }
+  .A.play .ripple { animation: a-ripple .8s ease-out .5s forwards; }
+  .A.play .mark { animation: a-mark .5s var(--ease) .95s forwards, a-fly .7s cubic-bezier(.72,0,.24,1) 2.3s forwards; }
+  .A.play .word { animation: fade-up .4s var(--ease) 1.25s forwards, fade-out .3s ease 2.3s forwards; }
+  .A.play .page { animation: fade-in .5s ease 2.65s forwards; }
+  .A.play .page .nav svg { animation: fade-in .1s linear 2.95s forwards; }
+  @keyframes a-pool { 0% { opacity: 1; transform: scaleX(.5); } 35% { opacity: 1; transform: scaleX(1) rotate(-4deg); } 62% { opacity: 1; width: 160px; height: 54px; border-radius: 58% 42% 68% 32%; transform: rotate(24deg); } 100% { opacity: 0; width: 34px; height: 74px; transform: translateY(-40px) rotate(12deg) scale(.42); } }
+  @keyframes a-ripple { from { opacity: .9; transform: scale(.2); } to { opacity: 0; transform: scale(2.6); } }
+  @keyframes a-mark { from { opacity: 0; transform: scale(.7); filter: blur(8px); } to { opacity: 1; transform: none; filter: drop-shadow(0 5px 24px #c9cfd82a); } }
+  @keyframes a-fly { to { left: 33px; top: 33px; width: 22px; height: 22px; } }
+
+  /* Splash B — graph lines, a parabola traces, its roots meet and become the ? dot. */
+  .B .grid { position: absolute; inset: 0; opacity: 0; background-image: linear-gradient(#e9ecf112 1px, transparent 1px), linear-gradient(90deg, #e9ecf112 1px, transparent 1px); background-size: 28px 28px; mask-image: radial-gradient(60% 60% at 50% 50%, #000, transparent 75%); -webkit-mask-image: radial-gradient(60% 60% at 50% 50%, #000, transparent 75%); }
+  .B svg.plot { position: absolute; left: 50%; top: 50%; width: 300px; height: 300px; translate: -50% -55%; overflow: visible; }
+  .B .axis { stroke: #e9ecf133; stroke-width: 1; stroke-dasharray: 400; stroke-dashoffset: 400; }
+  .B .curve { stroke: url(#silverB); stroke-width: 3; fill: none; stroke-linecap: round; stroke-dasharray: 520; stroke-dashoffset: 520; }
+  .B .root { fill: #e9ecf1; opacity: 0; filter: drop-shadow(0 0 8px #8fb3ff); }
+  .B .q { stroke: url(#silverB); stroke-width: 10.5; fill: none; stroke-linecap: round; stroke-dasharray: 160; stroke-dashoffset: 160; }
+  .B.play .grid { animation: fade-in .6s ease .05s forwards, fade-out .5s ease 2.2s forwards; }
+  .B.play .axis { animation: draw .7s var(--ease) .15s forwards, fade-out .4s ease 1.55s forwards; }
+  .B.play .curve { animation: draw .9s cubic-bezier(.65,0,.35,1) .45s forwards, fade-out .35s ease 1.5s forwards; }
+  .B.play .root { animation: pop .3s var(--ease) 1.25s forwards; }
+  .B.play .root.l { animation: pop .3s var(--ease) 1.25s forwards, meet-l .5s cubic-bezier(.65,0,.35,1) 1.6s forwards; }
+  .B.play .root.r { animation: pop .3s var(--ease) 1.3s forwards, meet-r .5s cubic-bezier(.65,0,.35,1) 1.6s forwards; }
+  .B.play .q { animation: draw .55s var(--ease) 1.9s forwards; }
+  .B.play .word { animation: fade-up .4s var(--ease) 2.2s forwards, fade-out .3s ease 3.1s forwards; }
+  .B.play svg.plot { animation: b-fly .7s cubic-bezier(.72,0,.24,1) 3.1s forwards; }
+  .B.play .page { animation: fade-in .5s ease 3.45s forwards; }
+  .B.play .page .nav svg { animation: fade-in .1s linear 3.75s forwards; }
+  @keyframes meet-l { to { transform: translate(19.5px, 18px) scale(1.55); } }
+  @keyframes meet-r { to { transform: translate(-17.5px, 18px) scale(1.55); } }
+  @keyframes b-fly { to { left: 33px; top: 34px; width: 60px; height: 60px; translate: -50% -50%; opacity: 0; } }
+
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes pop { from { opacity: 0; transform: scale(.2); } to { opacity: 1; transform: none; } }
+  @keyframes fade-in { to { opacity: 1; } }
+  @keyframes fade-out { to { opacity: 0; } }
+  @keyframes fade-up { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .root { transform-box: fill-box; transform-origin: center; }
+
+  /* ── Logo tiles ─────────────────────────────────────────────── */
+  .logo { border-radius: 16px; padding: 16px 12px 12px; background: linear-gradient(160deg, #111726, #07090f); box-shadow: inset 0 0 0 1px #ffffff12; display: grid; justify-items: center; gap: 10px; }
+  .logo .big { width: 72px; height: 72px; }
+  .logo .row { display: flex; align-items: center; gap: 8px; }
+  .logo .row svg { width: 18px; height: 18px; }
+  .logo .row span { font-size: 15px; font-weight: 650; letter-spacing: -.045em; color: #e9ecf1; }
+  .logo .row small { font-size: 8px; color: #9aa3b2; letter-spacing: .1em; }
+  .logo .tile { width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; background: linear-gradient(160deg, #1a2238, #0b0f1a); box-shadow: inset 0 0 0 1px #ffffff22; }
+  .logo .tile svg { width: 26px; height: 26px; }
+  .logo .name { font-size: 12px; font-weight: 600; color: #e9ecf1; text-align: center; }
+  .logo .why { font-size: 11px; color: #7c8597; text-align: center; line-height: 1.35; }
+
+  /* ── Pattern swatches ───────────────────────────────────────── */
+  .pat { position: relative; height: 150px; border-radius: 16px; overflow: hidden; background: linear-gradient(160deg, #0f1730 0%, #0a0f1f 45%, #05070d 100%); }
+  .pat .vig { position: absolute; inset: 0; box-shadow: inset 0 0 120px 30px #01020699; pointer-events: none; }
+  .pat .hl { position: absolute; left: 16px; bottom: 14px; z-index: 3; font-size: 26px; font-weight: 600; letter-spacing: -.05em; line-height: .95; }
+  .pat .hl em { font-style: normal; background: linear-gradient(110deg,#f5f7fa,#c9cfd8 39%,#8e97a6 67%,#e6e9ee); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .pat-cap { margin-top: 6px; }
+  /* P1 current math plot */
+  .p1 svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  /* P2 brushed metal */
+  .p2 .brush { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, #ffffff0e 0 1px, transparent 1px 3px); }
+  .p2 .streak { position: absolute; inset: -40% -10%; background: linear-gradient(105deg, transparent 40%, #c9d6ff22 48%, #ffffff30 50%, #c9d6ff22 52%, transparent 60%); animation: sweep 6s linear infinite; }
+  /* P3 silk aurora */
+  .p3 .silk { position: absolute; inset: -30%; background: radial-gradient(30% 35% at 70% 30%, #8fb3ff55, transparent 70%), radial-gradient(35% 40% at 30% 70%, #6b7fd044, transparent 70%), radial-gradient(25% 30% at 85% 80%, #e9ecf122, transparent 70%); filter: blur(10px); animation: drift 10s ease-in-out infinite alternate; }
+  /* P4 halftone dots */
+  .p4 .dots { position: absolute; inset: 0; background-image: radial-gradient(#e9ecf170 1.1px, transparent 1.5px); background-size: 12px 12px; mask-image: radial-gradient(70% 90% at 75% 30%, #000, transparent 75%); -webkit-mask-image: radial-gradient(70% 90% at 75% 30%, #000, transparent 75%); }
+  .p4 .glow { position: absolute; width: 160px; height: 160px; right: 10%; top: -20%; border-radius: 50%; background: radial-gradient(circle, #8fb3ff40, transparent 70%); animation: drift 8s ease-in-out infinite alternate; }
+  /* P5 silk ribbons */
+  .p5 svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .p5 .rib { animation: ribbon 9s ease-in-out infinite alternate; transform-origin: center; }
+  .p5 .rib:nth-child(2) { animation-duration: 12s; }
+  .p5 .rib:nth-child(3) { animation-duration: 15s; }
+  @keyframes sweep { from { transform: translateX(-60%); } to { transform: translateX(60%); } }
+  @keyframes drift { from { transform: translate(-4%, -3%) scale(1); } to { transform: translate(4%, 3%) scale(1.06); } }
+  @keyframes ribbon { from { transform: translateY(-6px) skewY(-1deg); } to { transform: translateY(8px) skewY(1.5deg); } }
+  @media (prefers-reduced-motion: reduce) { * { animation-duration: .01s !important; animation-iteration-count: 1 !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <section>
+    <h2>Splash</h2>
+    <p class="sub">About 3 seconds on first open, skippable. Tap Replay to watch again.</p>
+    <div class="grid2">
+      <div class="player A" id="A">
+        <span class="label tag">A <b>Molten silver</b></span>
+        <div class="page"><div class="nav"><svg viewBox="0 0 100 100"><use href="#qmark" /></svg><span>Tanong</span></div><h3>Bayad per<br /><em>tanong.</em></h3><p>₱0.30 a question. Not ₱1,100 a month.</p></div>
+        <div class="pool"></div><div class="ripple"></div>
+        <svg class="mark" viewBox="0 0 100 100"><use href="#qmark" /></svg>
+        <div class="word"><strong>Tanong</strong><small>402</small></div>
+        <button onclick="replay('A')">↻ Replay</button>
+      </div>
+      <div class="player B" id="B">
+        <span class="label tag">B <b>Solve for ?</b></span>
+        <div class="grid"></div>
+        <div class="page"><div class="nav"><svg viewBox="0 0 100 100"><use href="#qmark" /></svg><span>Tanong</span></div><h3>Bayad per<br /><em>tanong.</em></h3><p>₱0.30 a question. Not ₱1,100 a month.</p></div>
+        <svg class="plot" viewBox="0 0 100 100">
+          <defs><linearGradient id="silverB" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#F5F7FA" /><stop offset=".3" stop-color="#C9CFD8" /><stop offset=".55" stop-color="#8E97A6" /><stop offset=".8" stop-color="#E6E9EE" /></linearGradient></defs>
+          <path class="axis" d="M-30 70H130M50 -20V120" />
+          <path class="curve" d="M14 20 Q50 156 86 20" />
+          <path class="q" d="M27 39C27 22 39 12 53 12c14 0 23 10 23 22 0 11-7 17-16 23-6 4-9 9-9 17" />
+          <circle class="root l" cx="31.5" cy="70" r="4.5" />
+          <circle class="root r" cx="68.5" cy="70" r="4.5" />
+        </svg>
+        <div class="word" style="top:252px"><strong>Tanong</strong><small>402</small></div>
+        <button onclick="replay('B')">↻ Replay</button>
+      </div>
+    </div>
+    <p class="note">B is new and has no moon: graph lines fade in, a parabola draws itself, its two roots light up and slide together into the dot of the question mark, then the mark flies into the nav.</p>
+  </section>
+
+  <section>
+    <h2>Logo</h2>
+    <p class="sub">Each shown large, in the nav, and as an app icon.</p>
+    <div class="grid5" id="logos"></div>
+  </section>
+
+  <section>
+    <h2>Pattern for the landing</h2>
+    <p class="sub">Same midnight base and soft edge shadow in all five. Only the texture changes.</p>
+    <div class="grid-p">
+      <div><div class="pat p1"><svg viewBox="0 0 300 150" preserveAspectRatio="xMidYMid slice" fill="none" stroke="#d6e0f5" stroke-width=".5">
+        <g opacity=".12"><path d="M0 120H300M210 0V150" /></g>
+        <g opacity=".22" id="fan"></g>
+        <text x="30" y="40" fill="#e9ecf1" opacity=".08" font-size="28" stroke="none">∫</text><text x="250" y="30" fill="#e9ecf1" opacity=".08" font-size="18" stroke="none">x²</text>
+      </svg><div class="vig"></div><div class="hl">Bayad per<br /><em>tanong.</em></div></div><div class="pat-cap tag">1 <b>Math plot (now)</b></div><p class="note">Graph axes, parabolas, formula marks.</p></div>
+
+      <div><div class="pat p2"><div class="brush"></div><div class="streak"></div><div class="vig"></div><div class="hl">Bayad per<br /><em>tanong.</em></div></div><div class="pat-cap tag">2 <b>Brushed metal</b></div><p class="note">Fine hairlines like a metal card, one slow light streak.</p></div>
+
+      <div><div class="pat p3"><div class="silk"></div><div class="vig"></div><div class="hl">Bayad per<br /><em>tanong.</em></div></div><div class="pat-cap tag">3 <b>Silk glow</b></div><p class="note">No lines at all. Soft blue light drifting under the surface.</p></div>
+
+      <div><div class="pat p4"><div class="dots"></div><div class="glow"></div><div class="vig"></div><div class="hl">Bayad per<br /><em>tanong.</em></div></div><div class="pat-cap tag">4 <b>Silver dot grid</b></div><p class="note">Fine dots fading out from one corner, a glow drifting over them.</p></div>
+
+      <div><div class="pat p5"><svg viewBox="0 0 300 150" preserveAspectRatio="none" fill="none">
+        <defs><linearGradient id="rb" x1="0" x2="1"><stop stop-color="#8fb3ff" stop-opacity="0" /><stop offset=".5" stop-color="#d6e0ff" stop-opacity=".8" /><stop offset="1" stop-color="#8fb3ff" stop-opacity="0" /></linearGradient></defs>
+        <path class="rib" d="M-20 110 C60 60 140 140 320 50" stroke="url(#rb)" stroke-width="18" opacity=".35" style="filter:blur(6px)" />
+        <path class="rib" d="M-20 95 C80 50 160 130 320 40" stroke="url(#rb)" stroke-width="1.2" opacity=".9" />
+        <path class="rib" d="M-20 125 C70 80 170 150 320 70" stroke="url(#rb)" stroke-width=".8" opacity=".6" />
+      </svg><div class="vig"></div><div class="hl">Bayad per<br /><em>tanong.</em></div></div><div class="pat-cap tag">5 <b>Light ribbons</b></div><p class="note">A few glowing silk ribbons flowing slowly across.</p></div>
+    </div>
+  </section>
+</div>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="silver" x1="24" y1="8" x2="78" y2="90" gradientUnits="userSpaceOnUse"><stop stop-color="#F5F7FA" /><stop offset=".26" stop-color="#C9CFD8" /><stop offset=".52" stop-color="#8E97A6" /><stop offset=".77" stop-color="#E6E9EE" /><stop offset="1" stop-color="#AEB6C2" /></linearGradient>
+    <g id="qmark"><path d="M27 39C27 22 39 12 53 12c14 0 23 10 23 22 0 11-7 17-16 23-6 4-9 9-9 17" fill="none" stroke="url(#silver)" stroke-width="10.5" stroke-linecap="round" stroke-linejoin="round" /><circle cx="51" cy="88" r="7" fill="url(#silver)" /></g>
+  </defs>
+</svg>
+
+<script>
+  // Parabola fan for pattern 1.
+  const fan = document.getElementById("fan");
+  for (let j = 0; j < 12; j++) {
+    const k = 0.004 * Math.pow(1.35, j);
+    let d = "";
+    for (let x = 0; x <= 300; x += 6) { const y = 120 - k * (x - 210) * (x - 210); if (y > -20) d += (d ? "L" : "M") + x + " " + y.toFixed(1); }
+    const p = document.createElementNS("http://www.w3.org/2000/svg", "path"); p.setAttribute("d", d); fan.appendChild(p);
+  }
+
+  // Logo options. All silver on midnight; none uses a moon.
+  const S = 'stroke="url(#silver)"', F = 'fill="url(#silver)"';
+  const LOGOS = [
+    { name: "1 · Silver ?", why: "Codex's mark with a plain round dot instead of the crescent.",
+      svg: `<path d="M27 39C27 22 39 12 53 12c14 0 23 10 23 22 0 11-7 17-16 23-6 4-9 9-9 17" fill="none" ${S} stroke-width="10.5" stroke-linecap="round"/><circle cx="51" cy="88" r="7" ${F}/>` },
+    { name: "2 · Parabola ?", why: "The arc is a parabola on an axis; the dot is its root.",
+      svg: `<path d="M8 80H92" stroke="#8e97a6" stroke-width="3" stroke-linecap="round" opacity=".6"/><path d="M26 44C26 18 74 18 74 40c0 14-12 18-20 24-3 2-4 5-4 8" fill="none" ${S} stroke-width="10" stroke-linecap="round"/><circle cx="50" cy="80" r="7.5" ${F}/>` },
+    { name: "3 · Ask bubble", why: "A chat bubble with the ? cut out. Reads as 'ask' at any size.",
+      svg: `<path d="M18 16h64a10 10 0 0 1 10 10v40a10 10 0 0 1-10 10H46L28 90V76H18A10 10 0 0 1 8 66V26a10 10 0 0 1 10-10Z" ${F}/><path d="M40 38c0-7 5-11 11-11s10 4 10 9c0 5-3 7-7 10-2 1.5-3 3.5-3 6" fill="none" stroke="#0b0f1a" stroke-width="6" stroke-linecap="round"/><circle cx="51" cy="63" r="3.8" fill="#0b0f1a"/>` },
+    { name: "4 · Coin ?", why: "A silver coin with an engraved edge. Pay per question, literally.",
+      svg: `<circle cx="50" cy="50" r="42" ${F}/><circle cx="50" cy="50" r="35" fill="none" stroke="#0b0f1a" stroke-opacity=".35" stroke-width="1.5" stroke-dasharray="2 3"/><path d="M38 40c0-8 6-13 13-13s12 5 12 11c0 6-4 8-8 11-2 1.5-3 3.5-3 7" fill="none" stroke="#0b0f1a" stroke-width="7" stroke-linecap="round"/><circle cx="52" cy="69" r="4.5" fill="#0b0f1a"/>` },
+    { name: "5 · T? monogram", why: "A T whose stem curls into the question. Our own letterform.",
+      svg: `<path d="M14 20H86" ${S} stroke-width="10" stroke-linecap="round"/><path d="M50 20v20c0 10 22 8 22 22 0 10-10 14-18 14" fill="none" ${S} stroke-width="10" stroke-linecap="round"/><circle cx="50" cy="90" r="6.5" ${F}/>` },
+  ];
+  document.getElementById("logos").innerHTML = LOGOS.map((l) => `
+    <div class="logo">
+      <svg class="big" viewBox="0 0 100 100">${l.svg}</svg>
+      <div class="row"><svg viewBox="0 0 100 100">${l.svg}</svg><span>Tanong</span><small>402</small></div>
+      <div class="tile"><svg viewBox="0 0 100 100">${l.svg}</svg></div>
+      <div class="name">${l.name}</div><div class="why">${l.why}</div>
+    </div>`).join("");
+
+  function replay(id) {
+    const el = document.getElementById(id);
+    el.classList.remove("play"); void el.offsetWidth; el.classList.add("play");
+  }
+  replay("A"); setTimeout(() => replay("B"), 400);
+</script>
+</body>
+</html>

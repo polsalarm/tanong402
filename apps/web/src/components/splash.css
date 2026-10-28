@@ -1,0 +1,246 @@
+/* First-visit splash (Splash.tsx). The timeline matches UI/splash/splash-c.html. */
+.sp {
+  --sp-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --sp-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --sp-move: cubic-bezier(0.72, 0, 0.24, 1);
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  cursor: pointer;
+  background: radial-gradient(ellipse at 50% 46%, #172036 0%, #0b0f1a 46%, #05070d 100%);
+  animation: sp-out 0.45s ease 3.6s forwards;
+}
+.sp-leave {
+  animation: sp-out 0.3s ease forwards !important;
+}
+.sp-halo,
+.sp-sky,
+.sp-seed,
+.sp-mark {
+  position: absolute;
+  left: 50%;
+  top: 44%;
+  translate: -50% -50%;
+}
+.sp-halo {
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #8fb3ff2e 0%, #8fb3ff0d 40%, transparent 70%);
+  opacity: 0;
+  animation: sp-in 0.9s ease 0.4s forwards, sp-fade 0.5s ease 3s forwards;
+}
+.sp-sky {
+  width: 320px;
+  height: 320px;
+  overflow: visible;
+}
+.sp-ln {
+  fill: none;
+  stroke: #d6e0f566;
+  stroke-width: 0.6;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: sp-draw 1.2s var(--sp-ease) 1.4s forwards, sp-fade 0.5s ease 2.9s forwards;
+}
+.sp-st {
+  fill: #f5f7fa;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sp-star 0.4s var(--sp-pop) forwards, sp-fade 0.5s ease forwards;
+}
+.sp-seed {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff, #c9cfd8 60%, #8e97a6);
+  box-shadow: 0 0 18px #c9d6ff, 0 0 40px #8fb3ff88;
+  opacity: 0;
+  animation: sp-seed-in 0.35s var(--sp-ease) 0.05s forwards, sp-seed-out 0.2s ease 0.52s forwards;
+}
+.sp-mark {
+  width: 132px;
+  height: 132px;
+  overflow: visible;
+  filter: drop-shadow(0 18px 40px #00000080) drop-shadow(0 0 30px #8fb3ff26);
+  animation: sp-fly 0.7s var(--sp-move) 3.15s forwards;
+}
+.sp-bubble {
+  transform-box: fill-box;
+  transform-origin: 30% 85%;
+  transform: scale(0);
+  animation: sp-inflate 0.62s var(--sp-pop) 0.45s forwards;
+}
+.sp-gloss {
+  opacity: 0;
+  animation: sp-in 0.4s ease 0.8s forwards;
+}
+.sp-dot {
+  fill: #0b0f1a;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.sp-d1 {
+  animation: sp-in 0.2s ease 1.05s forwards, sp-type 0.5s ease-in-out 1.15s 2, sp-fade 0.2s ease 2.1s forwards;
+}
+.sp-d2 {
+  animation: sp-in 0.2s ease 1.12s forwards, sp-type 0.5s ease-in-out 1.27s 2, sp-fade 0.2s ease 2.1s forwards;
+}
+.sp-d3 {
+  animation: sp-in 0.2s ease 1.19s forwards, sp-type 0.5s ease-in-out 1.39s 2, sp-drop 0.45s var(--sp-move) 2.15s forwards;
+}
+.sp-q {
+  fill: none;
+  stroke: #0b0f1a;
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: sp-draw 0.55s var(--sp-ease) 2.15s forwards;
+}
+.sp-shine {
+  opacity: 0;
+  animation: sp-in 0.01s linear 2.5s forwards;
+}
+.sp-shine rect {
+  animation: sp-sweep 0.7s ease-in-out 2.5s forwards;
+}
+.sp-word {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(44% + 84px);
+  text-align: center;
+  opacity: 0;
+  animation: sp-rise 0.5s var(--sp-ease) 2.55s forwards, sp-fade 0.25s ease 3.15s forwards;
+}
+.sp-word strong {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  background: linear-gradient(100deg, #f5f7fa, #c9cfd8 42%, #8e97a6 70%, #e6e9ee);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.sp-word small {
+  margin-left: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: #9aa3b2;
+}
+.sp-word i {
+  display: block;
+  margin-top: 8px;
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: #8fb3ff;
+}
+
+@keyframes sp-seed-in {
+  from {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes sp-seed-out {
+  to {
+    opacity: 0;
+    transform: scale(2.4);
+  }
+}
+@keyframes sp-inflate {
+  0% {
+    transform: scale(0) rotate(-8deg);
+  }
+  70% {
+    transform: scale(1.06) rotate(1deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+@keyframes sp-type {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-6px);
+  }
+}
+/* From the third typing dot (62, 47) to the question's dot (51, 60). */
+@keyframes sp-drop {
+  to {
+    transform: translate(-11px, 13px) scale(1.1);
+  }
+}
+@keyframes sp-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes sp-sweep {
+  from {
+    transform: translateX(-140px) skewX(-18deg);
+  }
+  to {
+    transform: translateX(160px) skewX(-18deg);
+  }
+}
+@keyframes sp-star {
+  from {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes sp-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* Into the real nav logo; Splash.tsx measures it into --sp-fx / --sp-fy / --sp-fs. */
+@keyframes sp-fly {
+  to {
+    left: var(--sp-fx, 40px);
+    top: var(--sp-fy, 36px);
+    width: var(--sp-fs, 30px);
+    height: var(--sp-fs, 30px);
+    filter: none;
+  }
+}
+@keyframes sp-in {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes sp-fade {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes sp-out {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
