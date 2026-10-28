@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" data-theme="midnight">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#07090F" />
+    <title>Tanong402 · Bayad per tanong. Not per month.</title>
+    <meta
+      name="description"
+      content="A step-by-step AI tutor for Filipino students. ₱0.30 per question, a receipt for every answer, no subscription and no card."
+    />
+    <meta property="og:title" content="Tanong402 · Bayad per tanong. Not per month." />
+    <meta
+      property="og:description"
+      content="A step-by-step AI tutor for ₱0.30 a question. Walang subscription, walang card."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <style>
+      html { background: #07090f; }
+      html[data-theme="silver"] { background: #f4f5f7; }
+    </style>
+    <script>
+      (function () {
+        var theme = "midnight";
+        try {
+          var saved = localStorage.getItem("t402.theme");
+          if (saved === "silver") theme = "silver";
+          else if (saved === "system" && window.matchMedia("(prefers-color-scheme: light)").matches) theme = "silver";
+        } catch (e) {}
+        document.documentElement.setAttribute("data-theme", theme);
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute("content", theme === "silver" ? "#F4F5F7" : "#07090F");
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>Tanong402 needs JavaScript to run. Please turn it on and reload.</noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
