@@ -1,0 +1,10 @@
+[
+  {"pose":"wave","file":"wave.svg","width":512,"height":512,"alt":"Kuwago leans toward you, joyfully waving one raised wing with a happy open beak."},
+  {"pose":"invite","file":"invite.svg","width":512,"height":512,"alt":"Kuwago proudly offers an invitation card toward you with both wings."},
+  {"pose":"thinking","file":"thinking.svg","width":512,"height":512,"alt":"Kuwago stands wide with head tilted, looking upward while touching its chin; a question spark floats above."},
+  {"pose":"reading","file":"reading.svg","width":512,"height":512,"alt":"Kuwago sits with its head bowed, reading an open book held low in both wings."},
+  {"pose":"celebrate","file":"celebrate.svg","width":512,"height":512,"alt":"Kuwago leaps with feet off the ground and wings raised in a V as a silver coin and sparkles fly."},
+  {"pose":"sleepy","file":"sleepy.svg","width":512,"height":512,"alt":"Sleepy Kuwago slumps onto a soft pillow with eyes closed and a gentle z curl above."},
+  {"pose":"peek","file":"peek.svg","width":512,"height":512,"alt":"Kuwago peeks over an edge, showing its upper half while gripping the ledge with both wings."},
+  {"pose":"point","file":"point.svg","width":512,"height":512,"alt":"Kuwago points to the side with one wing while resting the other on its hip."}
+]

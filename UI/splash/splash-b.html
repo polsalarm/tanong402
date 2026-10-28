@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tanong402 · Splash B · Moonrise</title>
+<style>
+  @property --hole { syntax: "<length>"; initial-value: 0px; inherits: false; }
+  :root { --bg:#07090f; --fg:#e9ecf1; --fg2:#9aa3b2; --accent:#8fb3ff; color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg); font-family: Inter, ui-sans-serif, -apple-system, "Segoe UI", sans-serif; }
+
+  /* ── fake landing behind the splash (so the fly-in has a target) ── */
+  .page { min-height: 100vh; background:
+      radial-gradient(900px 520px at 78% 18%, #8fb3ff40, transparent 62%),
+      radial-gradient(1200px 700px at 50% -20%, #1a2340, transparent 60%),
+      linear-gradient(180deg, #0c1222, #080b14); }
+  header { position: fixed; inset: 16px 16px auto; display: flex; align-items: center; gap: 24px; height: 56px; padding: 0 12px 0 8px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--fg); }
+  .brand .slot { width: 34px; height: 34px; }
+  .brand b { font-size: 19px; letter-spacing: -0.03em; }
+  .brand small { font-size: 11px; color: var(--fg2); margin-left: 1px; }
+  nav { margin: 0 auto; display: flex; gap: 28px; color: var(--fg2); font-size: 15px; }
+  .cta { height: 42px; padding: 0 18px; border-radius: 99px; border: 0; font-weight: 600; background: linear-gradient(180deg,#f5f7fa,#c9cfd8 60%,#e6e9ee); color:#0b0f1a; }
+  .hero { max-width: 1100px; margin: 0 auto; padding: 170px 32px 0; }
+  .hero h1 { font-size: clamp(56px, 9vw, 112px); line-height: .92; letter-spacing: -0.055em; margin: 0; }
+  .hero h1 span { background: linear-gradient(100deg,#8e97a6,#e6e9ee 22%,#fff 34%,#c9cfd8 48%,#f5f7fa 62%,#8e97a6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero p { color: var(--fg2); font-size: 20px; margin-top: 22px; }
+
+  /* ── splash ── */
+  #splash { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: var(--bg);
+    -webkit-mask: radial-gradient(circle at var(--mx,50%) var(--my,46%), transparent var(--hole), #000 calc(var(--hole) + 1px));
+            mask: radial-gradient(circle at var(--mx,50%) var(--my,46%), transparent var(--hole), #000 calc(var(--hole) + 1px)); }
+  #splash.done { display: none; }
+  .stars { position: absolute; inset: 0; }
+  .stars i { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #fff; box-shadow: 0 0 6px #fff; opacity: 0; }
+  .glow { position: absolute; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, #b9cdff2e, transparent 62%); opacity: 0; }
+  .lockup { position: relative; display: flex; align-items: center; gap: 18px; will-change: transform; }
+  .mark { width: 132px; height: 132px; overflow: visible; }
+  .word { display: flex; align-items: baseline; overflow: hidden; }
+  .word b { font-size: 64px; letter-spacing: -0.045em; font-weight: 650;
+    background: linear-gradient(100deg,#8e97a6 0%,#e6e9ee 22%,#fff 34%,#c9cfd8 48%,#f5f7fa 62%,#8e97a6 100%) 120% 0/250% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .word small { font-size: 18px; color: var(--fg2); margin-left: 4px; }
+  .skip { position: absolute; bottom: 28px; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: #5f6878; opacity: 0; }
+  #replay { position: fixed; right: 20px; bottom: 20px; z-index: 120; height: 40px; padding: 0 16px; border-radius: 99px; border: 1px solid #ffffff22; background: #111726cc; color: var(--fg); font: inherit; font-size: 14px; cursor: pointer; display: none; }
+  @media (prefers-reduced-motion: reduce) { #splash { display: none; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <a class="brand" href="#"><svg class="slot" id="target" viewBox="0 0 132 132" aria-hidden="true"></svg><b>Tanong</b><small>402</small></a>
+    <nav><span>How it works</span><span>Why us</span><span>Stories</span><span>FAQ</span></nav>
+    <button class="cta">Get started</button>
+  </header>
+  <section class="hero">
+    <h1>Bayad per<br /><span>tanong.</span></h1>
+    <p>₱0.29 a question. Not ₱1,100 a month.</p>
+  </section>
+</div>
+
+<div id="splash" role="presentation" aria-hidden="true">
+  <div class="stars" id="stars"></div>
+  <div class="glow" id="glow"></div>
+  <div class="lockup" id="lockup">
+    <svg class="mark" id="mark" viewBox="0 0 132 132">
+      <defs>
+        <radialGradient id="pearl" cx="38%" cy="32%" r="78%">
+          <stop offset="0" stop-color="#fff" /><stop offset=".45" stop-color="#e6e9ee" /><stop offset=".8" stop-color="#aab3c2" /><stop offset="1" stop-color="#6f7a8c" />
+        </radialGradient>
+        <linearGradient id="silver" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#f5f7fa" /><stop offset=".45" stop-color="#c9cfd8" /><stop offset=".7" stop-color="#8e97a6" /><stop offset="1" stop-color="#e6e9ee" />
+        </linearGradient>
+        <mask id="phase">
+          <rect width="132" height="132" fill="#000" />
+          <circle cx="66" cy="54" r="40" fill="#fff" />
+          <circle id="shadow" cx="150" cy="54" r="40" fill="#000" />
+        </mask>
+        <filter id="soft"><feGaussianBlur stdDeviation="3" /></filter>
+      </defs>
+      <!-- 1. the moon (full → crescent via the sliding shadow) -->
+      <g id="moon" opacity="0"><circle cx="66" cy="54" r="40" fill="url(#pearl)" mask="url(#phase)" /></g>
+      <!-- 2. the "?" hook, drawn along the crescent's outer curve -->
+      <path id="hook" d="M38 46 C38 22 58 12 72 14 C94 16 104 36 96 52 C90 64 72 66 68 80 L67 92" fill="none" stroke="url(#silver)" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" opacity="0" />
+      <!-- 3. the falling star that becomes the dot -->
+      <g id="star" opacity="0">
+        <line id="trail" x1="67" y1="-70" x2="67" y2="-70" stroke="#b9cdff" stroke-width="2" stroke-linecap="round" opacity=".6" />
+        <circle id="dot" cx="67" cy="-70" r="7.5" fill="url(#pearl)" />
+      </g>
+      <g id="burst" opacity="0" stroke="#e9ecf1" stroke-width="1.6" stroke-linecap="round">
+        <line x1="67" y1="104" x2="67" y2="94" /><line x1="67" y1="118" x2="67" y2="128" />
+        <line x1="54" y1="111" x2="44" y2="111" /><line x1="80" y1="111" x2="90" y2="111" />
+      </g>
+    </svg>
+    <div class="word" id="word"><b id="wb">Tanong</b><small>402</small></div>
+  </div>
+  <div class="skip" id="skip">Click to skip</div>
+</div>
+<button id="replay">Replay splash B</button>
+
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const splash = $("splash"), lockup = $("lockup"), word = $("word");
+  const E = { out: "cubic-bezier(0.16, 1, 0.3, 1)", inOut: "cubic-bezier(0.65, 0, 0.35, 1)", fall: "cubic-bezier(0.55, 0, 1, 0.45)" };
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let anims = [], timers = [];
+
+  // Static copy of the final mark in the header (the fly-in lands here).
+  $("target").innerHTML = `<use href="#hook-final" />`;
+  $("target").innerHTML = $("mark").innerHTML;
+  ["moon", "star", "burst"].forEach((id) => $("target").querySelector("#" + id)?.remove());
+  const th = $("target").querySelector("#hook"); th.setAttribute("opacity", "1"); th.removeAttribute("id");
+  const tdot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+  Object.entries({ cx: 67, cy: 111, r: 7.5, fill: "#e6e9ee" }).forEach(([k, v]) => tdot.setAttribute(k, v));
+  $("target").appendChild(tdot);
+  $("target").querySelectorAll("[id]").forEach((n) => n.id && n.id !== "target" && n.removeAttribute("id"));
+
+  // Stars
+  const stars = $("stars");
+  for (let i = 0; i < 70; i++) {
+    const s = document.createElement("i");
+    s.style.left = Math.random() * 100 + "%"; s.style.top = Math.random() * 100 + "%";
+    const k = Math.random(); s.style.transform = `scale(${k < 0.15 ? 1.6 : k < 0.5 ? 1 : 0.7})`;
+    stars.appendChild(s);
+  }
+
+  const a = (el, kf, o) => { const an = el.animate(kf, { fill: "both", ...o }); anims.push(an); return an; };
+  const at = (ms, fn) => timers.push(setTimeout(fn, ms));
+
+  function finish() {
+    anims.forEach((x) => x.cancel()); timers.forEach(clearTimeout); anims = []; timers = [];
+    splash.classList.add("done"); $("replay").style.display = "block";
+    document.removeEventListener("keydown", onKey); splash.removeEventListener("click", finish);
+  }
+  const onKey = (e) => e.key === "Escape" && finish();
+
+  function play() {
+    if (reduce) return finish();
+    splash.classList.remove("done"); $("replay").style.display = "none";
+    splash.style.setProperty("--hole", "0px");
+    document.addEventListener("keydown", onKey); splash.addEventListener("click", finish);
+
+    // 0–600 ms: night falls, stars come out, moonlight glow
+    [...stars.children].forEach((s, i) => a(s, [{ opacity: 0 }, { opacity: 0.2 + Math.random() * 0.7 }], { duration: 900, delay: 80 + (i % 20) * 22, easing: "ease-out" }));
+    a($("glow"), [{ opacity: 0, transform: "scale(.6)" }, { opacity: 1, transform: "scale(1)" }], { duration: 1400, delay: 200, easing: E.out });
+    a($("skip"), [{ opacity: 0 }, { opacity: 1 }], { duration: 400, delay: 600 });
+
+    // 300–1250 ms: a full moon rises, then wanes into a crescent
+    a($("moon"), [{ opacity: 0, transform: "translateY(16px) scale(.86)" }, { opacity: 1, transform: "none" }], { duration: 700, delay: 300, easing: E.out });
+    a($("shadow"), [{ transform: "translateX(0)" }, { transform: "translateX(-66px)" }], { duration: 650, delay: 750, easing: E.inOut });
+
+    // 1250–1800 ms: the crescent's curve becomes the hook of the "?"
+    const hook = $("hook"), L = hook.getTotalLength();
+    hook.style.strokeDasharray = L;
+    a(hook, [{ opacity: 1, strokeDashoffset: L }, { opacity: 1, strokeDashoffset: 0 }], { duration: 620, delay: 1250, easing: E.inOut });
+    a($("moon"), [{ opacity: 1 }, { opacity: 0 }], { duration: 420, delay: 1380, easing: "ease-in" });
+
+    // 1700–2050 ms: a falling star drops in as the dot, with a small burst
+    a($("star"), [{ opacity: 0 }, { opacity: 1 }], { duration: 120, delay: 1700 });
+    a($("dot"), [{ transform: "translateY(0)" }, { transform: "translateY(181px)" }], { duration: 330, delay: 1700, easing: E.fall });
+    a($("trail"), [{ transform: "translateY(0) scaleY(1)", opacity: 0 }, { transform: "translateY(120px)", opacity: 0.7, offset: 0.7 }, { transform: "translateY(181px)", opacity: 0 }], { duration: 330, delay: 1700, easing: E.fall });
+    a($("burst"), [{ opacity: 0, transform: "scale(.4)" }, { opacity: 1, transform: "scale(1)", offset: 0.4 }, { opacity: 0, transform: "scale(1.5)" }], { duration: 520, delay: 2020, easing: E.out });
+    $("burst").style.transformOrigin = "67px 111px";
+
+    // 1900–2450 ms: the wordmark slides out from behind the mark, a gleam crosses it
+    word.style.width = "0px";
+    const full = word.scrollWidth;
+    a(word, [{ width: "0px", opacity: 0 }, { width: full + "px", opacity: 1 }], { duration: 560, delay: 1950, easing: E.out });
+    a($("wb"), [{ backgroundPosition: "120% 0" }, { backgroundPosition: "-40% 0" }], { duration: 900, delay: 2150, easing: E.inOut });
+
+    // 2600–3250 ms: the mark flies into the header slot while moonlight opens the page from the mark outward
+    at(2600, () => {
+      const from = $("mark").getBoundingClientRect(), to = $("target").getBoundingClientRect();
+      const s = to.width / from.width, dx = to.left - from.left, dy = to.top - from.top;
+      a(lockup, [{ transform: "none" }, { transform: `translate(${dx}px, ${dy}px) scale(${s})` }], { duration: 650, easing: E.inOut });
+      lockup.style.transformOrigin = "0 0";
+      splash.style.setProperty("--mx", from.left + from.width / 2 + "px");
+      splash.style.setProperty("--my", from.top + from.height / 2 + "px");
+      const r = Math.hypot(innerWidth, innerHeight);
+      a(splash, [{ "--hole": "0px" }, { "--hole": r + "px" }], { duration: 750, delay: 120, easing: E.inOut });
+      a(word, [{ opacity: 1 }, { opacity: 0 }], { duration: 260, delay: 380 });
+      a($("skip"), [{ opacity: 1 }, { opacity: 0 }], { duration: 200 });
+    });
+    at(3400, finish);
+  }
+
+  $("replay").addEventListener("click", () => { location.hash = ""; play(); });
+  window.__splashB = { play, finish };
+  play();
+})();
+</script>
+</body>
+</html>

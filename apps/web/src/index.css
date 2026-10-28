@@ -1,0 +1,878 @@
+@import "tailwindcss";
+
+/* ────────────────────────────────────────────────────────────────────────────
+   Midnight Silver — Tanong402 design system
+   Dark ("midnight") is the default and the hero. "silver" is the pearl light variant.
+   Semantic tokens live in --t-* custom properties and are exposed to Tailwind below.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+@custom-variant silver (&:where([data-theme="silver"], [data-theme="silver"] *));
+
+@theme {
+  /* Fintech type: one grotesk family. Inter for UI and money (tabular digits), Inter Tight for
+     headings, mono only for machine strings (tx hashes, addresses, code). */
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-display: "Inter Tight Variable", "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --color-midnight-950: #07090f;
+  --color-midnight-900: #0b0f1a;
+  --color-midnight-800: #111726;
+  --color-midnight-700: #161d2e;
+  --color-midnight-600: #1e2639;
+  --color-silver-50: #f5f7fa;
+  --color-silver-100: #e6e9ee;
+  --color-silver-200: #c9cfd8;
+  --color-silver-400: #8e97a6;
+  --color-platinum: #e9ecf1;
+  --color-ice: #8fb3ff;
+  --color-mint: #7fd1ae;
+  --color-rose: #f2a7a7;
+  --color-pearl: #f4f5f7;
+  --color-graphite: #151922;
+
+  --radius-xl: 14px;
+  --radius-2xl: 20px;
+  --radius-3xl: 24px;
+  --radius-4xl: 28px;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-silk: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --text-display-xl: clamp(2.75rem, 5.6vw + 1rem, 5rem);
+  --text-display-xl--line-height: 0.98;
+  --text-display-lg: clamp(2.375rem, 3vw + 1.25rem, 3.5rem);
+  --text-display-lg--line-height: 1;
+  --text-display-md: clamp(1.875rem, 1.6vw + 1.25rem, 2.5rem);
+  --text-display-md--line-height: 1.05;
+}
+
+@theme inline {
+  --color-bg: var(--t-bg);
+  --color-bg-raised: var(--t-bg-raised);
+  --color-surface: var(--t-surface);
+  --color-surface-2: var(--t-surface-2);
+  --color-line: var(--t-line);
+  --color-line-strong: var(--t-line-strong);
+  --color-fg: var(--t-fg);
+  --color-fg-2: var(--t-fg-2);
+  --color-fg-3: var(--t-fg-3);
+  --color-fg-4: var(--t-fg-4);
+  --color-accent: var(--t-accent);
+  --color-success: var(--t-success);
+  --color-danger: var(--t-danger);
+  --color-warn: var(--t-warn);
+  --color-on-metal: var(--t-on-metal);
+}
+
+/* ─── tokens ─────────────────────────────────────────────────────────────── */
+
+:root,
+[data-theme="midnight"] {
+  color-scheme: dark;
+  --t-bg: #07090f;
+  --t-bg-raised: #0b0f1a;
+  --t-surface: #111726;
+  --t-surface-2: #161d2e;
+  --t-line: rgb(201 207 216 / 0.1);
+  --t-line-strong: rgb(201 207 216 / 0.18);
+  --t-fg: #e9ecf1;
+  --t-fg-2: #9aa3b2;
+  --t-fg-3: #7c8597; /* AA on midnight; the brief's #5F6878 is reserved for --t-fg-4 */
+  --t-fg-4: #5f6878;
+  --t-accent: #8fb3ff;
+  --t-success: #7fd1ae;
+  --t-danger: #f2a7a7;
+  --t-warn: #e6cb94;
+  --t-on-metal: #0b0f1a;
+
+  --t-glass: linear-gradient(180deg, rgb(255 255 255 / 0.055) 0%, rgb(255 255 255 / 0.018) 100%);
+  --t-glass-strong: linear-gradient(180deg, rgb(22 29 46 / 0.86) 0%, rgb(13 18 30 / 0.86) 100%);
+  --t-hairline: linear-gradient(
+    180deg,
+    rgb(233 236 241 / 0.22) 0%,
+    rgb(233 236 241 / 0.06) 42%,
+    rgb(233 236 241 / 0.04) 70%,
+    rgb(233 236 241 / 0.1) 100%
+  );
+  --t-hairline-metal: linear-gradient(
+    135deg,
+    #f5f7fa 0%,
+    #8e97a6 30%,
+    #e6e9ee 55%,
+    #5f6878 78%,
+    #c9cfd8 100%
+  );
+  --t-metal-text: linear-gradient(
+    100deg,
+    #f5f7fa 0%,
+    #c9cfd8 28%,
+    #8e97a6 50%,
+    #e6e9ee 70%,
+    #b6bdc8 100%
+  );
+  --t-metal-fill: linear-gradient(180deg, #f5f7fa 0%, #dce1e7 36%, #b9c0cb 64%, #e6e9ee 100%);
+  --t-brush: repeating-linear-gradient(
+    90deg,
+    rgb(255 255 255 / 0.07) 0 1px,
+    rgb(0 0 0 / 0.025) 1px 3px
+  );
+  --t-shadow-card:
+    inset 0 1px 0 0 rgb(255 255 255 / 0.045), 0 30px 60px -32px rgb(0 0 0 / 0.8),
+    0 10px 24px -14px rgb(0 0 0 / 0.55);
+  --t-shadow-float:
+    inset 0 1px 0 0 rgb(255 255 255 / 0.06), 0 -8px 40px -12px rgb(0 0 0 / 0.65),
+    0 20px 50px -20px rgb(0 0 0 / 0.85);
+  --t-shadow-metal:
+    0 12px 32px -12px rgb(201 207 216 / 0.42), 0 2px 6px -2px rgb(0 0 0 / 0.5),
+    inset 0 1px 0 rgb(255 255 255 / 0.95), inset 0 -1px 0 rgb(0 0 0 / 0.18);
+  --t-sheen: rgb(255 255 255 / 0.55);
+  --t-ambient:
+    radial-gradient(1100px 620px at 50% -12%, rgb(201 207 216 / 0.13), transparent 62%),
+    radial-gradient(760px 520px at 108% 4%, rgb(143 179 255 / 0.075), transparent 60%),
+    radial-gradient(900px 700px at -8% 108%, rgb(143 179 255 / 0.045), transparent 62%),
+    linear-gradient(180deg, #0b0f1a 0%, #07090f 52%, #07090f 100%);
+  --t-grain-opacity: 0.05;
+  --t-scrim: rgb(3 5 10 / 0.62);
+}
+
+[data-theme="silver"] {
+  color-scheme: light;
+  --t-bg: #f4f5f7;
+  --t-bg-raised: #eef0f3;
+  --t-surface: #ffffff;
+  --t-surface-2: #f1f3f6;
+  --t-line: rgb(21 25 34 / 0.09);
+  --t-line-strong: rgb(21 25 34 / 0.16);
+  --t-fg: #151922;
+  --t-fg-2: #4f5867;
+  --t-fg-3: #5f6878;
+  --t-fg-4: #8a93a3;
+  --t-accent: #2f55c4;
+  --t-success: #1f7a57;
+  --t-danger: #a83f45;
+  --t-warn: #7a5a12;
+  --t-on-metal: #f4f5f7;
+
+  --t-glass: linear-gradient(180deg, rgb(255 255 255 / 0.92) 0%, rgb(255 255 255 / 0.74) 100%);
+  --t-glass-strong: linear-gradient(180deg, rgb(255 255 255 / 0.9) 0%, rgb(248 249 251 / 0.9) 100%);
+  --t-hairline: linear-gradient(
+    180deg,
+    rgb(255 255 255 / 1) 0%,
+    rgb(21 25 34 / 0.09) 38%,
+    rgb(21 25 34 / 0.08) 72%,
+    rgb(21 25 34 / 0.14) 100%
+  );
+  --t-hairline-metal: linear-gradient(
+    135deg,
+    #8e97a6 0%,
+    #e6e9ee 30%,
+    #5f6878 55%,
+    #c9cfd8 78%,
+    #4f5867 100%
+  );
+  --t-metal-text: linear-gradient(
+    100deg,
+    #151922 0%,
+    #4a5262 30%,
+    #232833 50%,
+    #6b7486 72%,
+    #2a303b 100%
+  );
+  --t-metal-fill: linear-gradient(180deg, #3f4655 0%, #232833 55%, #2d333e 100%);
+  --t-brush: repeating-linear-gradient(
+    90deg,
+    rgb(255 255 255 / 0.05) 0 1px,
+    rgb(0 0 0 / 0.04) 1px 3px
+  );
+  --t-shadow-card:
+    inset 0 1px 0 0 rgb(255 255 255 / 0.95), 0 24px 48px -30px rgb(15 23 42 / 0.28),
+    0 8px 18px -12px rgb(15 23 42 / 0.14);
+  --t-shadow-float:
+    inset 0 1px 0 0 rgb(255 255 255 / 1), 0 -6px 30px -14px rgb(15 23 42 / 0.18),
+    0 18px 40px -24px rgb(15 23 42 / 0.3);
+  --t-shadow-metal:
+    0 12px 28px -14px rgb(21 25 34 / 0.55), inset 0 1px 0 rgb(255 255 255 / 0.18),
+    inset 0 -1px 0 rgb(0 0 0 / 0.4);
+  --t-sheen: rgb(255 255 255 / 0.28);
+  --t-ambient:
+    radial-gradient(1100px 620px at 50% -12%, rgb(255 255 255 / 1), transparent 62%),
+    radial-gradient(760px 520px at 108% 4%, rgb(47 85 196 / 0.06), transparent 60%),
+    linear-gradient(180deg, #f8f9fb 0%, #f1f3f6 60%, #eceef2 100%);
+  --t-grain-opacity: 0.035;
+  --t-scrim: rgb(21 25 34 / 0.32);
+}
+
+/* ─── base ──────────────────────────────────────────────────────────────── */
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    background: var(--t-bg);
+  }
+
+  /* Transparent on purpose: the fixed .ambient layer (z-index -1) sits between the html
+     background and the body, and an opaque body would paint over the moonlight glow. */
+  body {
+    min-height: 100dvh;
+    background: transparent;
+    color: var(--t-fg);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.55;
+    font-feature-settings: "cv05", "calt";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--t-accent) 32%, transparent);
+    color: var(--t-fg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--t-accent);
+    outline-offset: 3px;
+  }
+
+  button,
+  [role="button"] {
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+
+  input,
+  textarea {
+    font-size: 16px; /* no iOS zoom */
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--t-line-strong) transparent;
+  }
+}
+
+/* The fixed atmosphere: moonlight glow + film grain. One static layer each, cheap on Android. */
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--t-ambient);
+}
+
+.grain {
+  position: fixed;
+  inset: -50%;
+  z-index: 60;
+  pointer-events: none;
+  opacity: var(--t-grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+[data-theme="silver"] .grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ─── utilities ─────────────────────────────────────────────────────────── */
+
+/* Glass surface with a 1px gradient hairline (mask trick) and an inner top highlight.
+   No backdrop blur here: cards sit on a static background, so blur buys nothing but jank. */
+@utility glass {
+  background: var(--t-glass);
+  box-shadow: var(--t-shadow-card);
+  /* The hairline is absolutely placed, so the surface must be its box; otherwise it frames the page. */
+  &:where(:not(.absolute, .fixed, .sticky)) {
+    position: relative;
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--t-hairline);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+/* Floating chrome (header, bottom nav, composer, sheets): the only places that blur. */
+/* Dropdown menus: near-opaque so text behind them never bleeds through. */
+@utility menu-solid {
+  background: var(--t-surface) !important;
+}
+
+@utility glass-float {
+  background: var(--t-glass-strong);
+  box-shadow: var(--t-shadow-float);
+  /* The hairline is absolutely placed, so the surface must be its box; otherwise it frames the page. */
+  &:where(:not(.absolute, .fixed, .sticky)) {
+    position: relative;
+  }
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  backdrop-filter: blur(22px) saturate(150%);
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--t-hairline);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+@utility hairline-metal {
+  /* The hairline is absolutely placed, so the surface must be its box; otherwise it frames the page. */
+  &:where(:not(.absolute, .fixed, .sticky)) {
+    position: relative;
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--t-hairline-metal);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+@utility text-metal {
+  background-image: var(--t-metal-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+@utility metal-fill {
+  color: var(--t-on-metal);
+  background-image: var(--t-brush), var(--t-metal-fill);
+  box-shadow: var(--t-shadow-metal);
+}
+
+/* Animated light sweep (primary CTA, balance card). Transform-only, so it stays on the GPU. */
+@utility sheen {
+  overflow: hidden;
+  isolation: isolate;
+  &::after {
+    content: "";
+    position: absolute;
+    top: -20%;
+    bottom: -20%;
+    left: 0;
+    width: 45%;
+    background: linear-gradient(
+      100deg,
+      transparent 0%,
+      color-mix(in srgb, var(--t-sheen) 40%, transparent) 40%,
+      var(--t-sheen) 50%,
+      color-mix(in srgb, var(--t-sheen) 40%, transparent) 60%,
+      transparent 100%
+    );
+    transform: translateX(-160%) skewX(-18deg);
+    animation: sheen-sweep 6.5s var(--ease-silk) 1.4s infinite;
+    pointer-events: none;
+    z-index: 2;
+    mix-blend-mode: soft-light;
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum", "cv05";
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.6875rem;
+  line-height: 1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--t-fg-2);
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@utility pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+@utility text-shimmer {
+  background-image: linear-gradient(
+    90deg,
+    var(--t-fg-3) 0%,
+    var(--t-fg) 38%,
+    var(--t-fg) 46%,
+    var(--t-fg-3) 62%,
+    var(--t-fg-3) 100%
+  );
+  background-size: 260% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: text-shimmer 2.1s linear infinite;
+}
+
+@utility skeleton-line {
+  position: relative;
+  overflow: hidden;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--t-fg) 7%, transparent);
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      color-mix(in srgb, var(--t-fg) 12%, transparent) 50%,
+      transparent 100%
+    );
+    transform: translateX(-100%);
+    animation: skeleton-sweep 1.6s var(--ease-silk) infinite;
+  }
+}
+
+/* Enlarged invisible hit area for compact chips (48px target, 34px visual). */
+@utility hit-slop {
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -7px -4px;
+  }
+}
+
+@keyframes sheen-sweep {
+  0% {
+    transform: translateX(-160%) skewX(-18deg);
+  }
+  38%,
+  100% {
+    transform: translateX(330%) skewX(-18deg);
+  }
+}
+
+@keyframes text-shimmer {
+  from {
+    background-position: 120% 0;
+  }
+  to {
+    background-position: -140% 0;
+  }
+}
+
+@keyframes skeleton-sweep {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes live-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--t-success) 55%, transparent);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 7px transparent;
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--t-success);
+  animation: live-pulse 2.2s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheen::after,
+  .text-shimmer,
+  .skeleton-line::after,
+  .live-dot {
+    animation: none !important;
+  }
+  .sheen::after {
+    display: none;
+  }
+  .text-shimmer {
+    color: var(--t-fg);
+    -webkit-text-fill-color: currentColor;
+    background: none;
+  }
+}
+
+/* ─── markdown answers ─────────────────────────────────────────────────── */
+
+@layer components {
+  .md {
+    font-size: 1rem;
+    line-height: 1.72;
+    color: var(--t-fg);
+    overflow-wrap: anywhere;
+  }
+  .md > * + * {
+    margin-top: 0.9em;
+  }
+  .md p {
+    color: color-mix(in srgb, var(--t-fg) 92%, var(--t-fg-2));
+  }
+  .md h1,
+  .md h2,
+  .md h3,
+  .md h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--t-fg);
+    margin-top: 1.25em;
+  }
+  .md h1 {
+    font-size: 1.75rem;
+  }
+  .md h2 {
+    font-size: 1.5rem;
+  }
+  .md h3,
+  .md h4 {
+    font-size: 1.25rem;
+  }
+  .md > :first-child {
+    margin-top: 0;
+  }
+  .md strong {
+    font-weight: 600;
+    color: var(--t-fg);
+  }
+  .md em {
+    font-style: italic;
+  }
+  .md a {
+    color: var(--t-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: color-mix(in srgb, var(--t-accent) 45%, transparent);
+  }
+  .md ol {
+    counter-reset: step;
+    list-style: none;
+    padding: 0;
+  }
+  .md ol > li {
+    counter-increment: step;
+    position: relative;
+    padding-left: 2.6rem;
+    min-height: 1.9rem;
+  }
+  .md ol > li + li {
+    margin-top: 0.85em;
+  }
+  .md ol > li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0.12em;
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-sans);
+    font-variant-numeric: tabular-nums;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--t-fg);
+    background: var(--t-surface-2);
+    box-shadow:
+      inset 0 0 0 1px var(--t-line-strong),
+      0 4px 12px -6px rgb(0 0 0 / 0.5);
+  }
+  .md ol > li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 0.85rem;
+    top: 2.05rem;
+    bottom: -0.75em;
+    width: 1px;
+    background: linear-gradient(180deg, var(--t-line-strong), transparent);
+  }
+  .md ul {
+    list-style: none;
+    padding: 0;
+  }
+  .md ul > li {
+    position: relative;
+    padding-left: 1.3rem;
+  }
+  .md ul > li + li {
+    margin-top: 0.45em;
+  }
+  .md ul > li::before {
+    content: "";
+    position: absolute;
+    left: 0.3rem;
+    top: 0.74em;
+    width: 5px;
+    height: 5px;
+    border-radius: 999px;
+    background: var(--t-fg-3);
+  }
+  .md li > p {
+    margin: 0;
+  }
+  .md li > * + * {
+    margin-top: 0.5em;
+  }
+  .md :not(pre) > code {
+    font-family: var(--font-mono);
+    font-size: 0.86em;
+    padding: 0.12em 0.42em;
+    border-radius: 7px;
+    background: var(--t-surface-2);
+    box-shadow: inset 0 0 0 1px var(--t-line);
+  }
+  .md blockquote {
+    padding: 0.2em 0 0.2em 1rem;
+    border-left: 2px solid var(--t-line-strong);
+    color: var(--t-fg-2);
+  }
+  .md hr {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--t-line-strong), transparent);
+  }
+  .md table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+    display: block;
+    overflow-x: auto;
+  }
+  .md th,
+  .md td {
+    text-align: left;
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px solid var(--t-line);
+    white-space: nowrap;
+  }
+  .md th {
+    font-weight: 500;
+    color: var(--t-fg-2);
+    font-size: 0.8125rem;
+  }
+
+  /* KaTeX */
+  .md .katex {
+    font-size: 1.06em;
+    color: var(--t-fg);
+  }
+  .md .katex-display {
+    margin: 0;
+    padding: 0.95rem 1.1rem;
+    border-radius: 16px;
+    background: color-mix(in srgb, var(--t-surface-2) 70%, transparent);
+    box-shadow: inset 0 0 0 1px var(--t-line);
+    overflow-x: auto;
+    overflow-y: hidden;
+    text-align: left;
+  }
+  .md .katex-display > .katex {
+    text-align: left;
+    font-size: 1.12em;
+  }
+
+  /* The emphasised "Final answer" block (see lib/markdown.ts). */
+  .md .final-answer {
+    position: relative;
+    margin-top: 1.25em;
+    padding: 1rem 1.15rem 1.05rem;
+    border-radius: 18px;
+    background:
+      radial-gradient(120% 140% at 0% 0%, color-mix(in srgb, var(--t-fg) 7%, transparent), transparent 55%),
+      var(--t-glass);
+    box-shadow: var(--t-shadow-card);
+  }
+  .md .final-answer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--t-hairline-metal);
+    opacity: 0.75;
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  .md .final-answer > .final-label {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--t-fg-2);
+    margin-bottom: 0.4rem;
+  }
+  .md .final-answer > .final-body {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--t-fg);
+  }
+  .md .final-answer .katex {
+    font-size: 1.12em;
+  }
+}
+
+/* ─── metal card (balance) ─────────────────────────────────────────────────
+   Dark titanium in Midnight, brushed silver in Silver. Brushing + soft specular
+   highlight + a faint engraved rosette; the sheen sweep comes from the `sheen` utility. */
+
+@layer components {
+  .metal-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background:
+      radial-gradient(130% 100% at 0% 0%, rgb(255 255 255 / 0.13), transparent 46%),
+      radial-gradient(80% 90% at 100% 110%, rgb(143 179 255 / 0.11), transparent 60%),
+      repeating-linear-gradient(100deg, rgb(255 255 255 / 0.024) 0 1px, transparent 1px 4px),
+      linear-gradient(140deg, #252c3e 0%, #121722 38%, #1b2132 62%, #0b0f17 100%);
+    box-shadow:
+      0 50px 90px -46px rgb(0 0 0 / 0.95),
+      0 22px 40px -22px rgb(0 0 0 / 0.75),
+      inset 0 1px 0 rgb(255 255 255 / 0.1),
+      inset 0 -1px 0 rgb(0 0 0 / 0.45);
+  }
+  [data-theme="silver"] .metal-card {
+    background:
+      radial-gradient(130% 100% at 0% 0%, rgb(255 255 255 / 0.95), transparent 46%),
+      radial-gradient(80% 90% at 100% 110%, rgb(47 85 196 / 0.07), transparent 60%),
+      repeating-linear-gradient(100deg, rgb(255 255 255 / 0.3) 0 1px, transparent 1px 4px),
+      linear-gradient(140deg, #f1f3f6 0%, #cdd3db 40%, #e9ecf0 62%, #b3bbc7 100%);
+    box-shadow:
+      0 40px 70px -40px rgb(15 23 42 / 0.45),
+      0 14px 30px -16px rgb(15 23 42 / 0.28),
+      inset 0 1px 0 rgb(255 255 255 / 0.95),
+      inset 0 -1px 0 rgb(15 23 42 / 0.12);
+  }
+
+  /* Soft-glow spotlight used behind hero compositions. */
+  .spotlight {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 999px;
+    background: radial-gradient(closest-side, rgb(201 207 216 / 0.16), transparent);
+    filter: blur(8px);
+  }
+  [data-theme="silver"] .spotlight {
+    background: radial-gradient(closest-side, rgb(255 255 255 / 0.9), transparent);
+  }
+
+  /* Headline emphasis words: same weight, brushed-metal gradient instead of italics. */
+  .em-metal {
+    background-image: var(--t-metal-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    padding-right: 0.06em;
+  }
+
+  /* Inter Tight headings: semibold and tight, the way fintech apps set display type. */
+  .font-display {
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    font-feature-settings: "cv05", "tnum";
+  }
+
+  /* Code blocks on /developers. */
+  .code {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.7;
+    color: color-mix(in srgb, var(--t-fg) 88%, var(--t-fg-2));
+    tab-size: 2;
+  }
+  .code .tok-c {
+    color: var(--t-fg-3);
+  }
+  .code .tok-s {
+    color: color-mix(in srgb, var(--t-success) 85%, var(--t-fg));
+  }
+  .code .tok-k {
+    color: var(--t-accent);
+  }
+  .code .tok-h {
+    color: var(--t-warn);
+  }
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.float-slow {
+  animation: float-y 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float-slow {
+    animation: none;
+  }
+}
