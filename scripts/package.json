@@ -1,0 +1,24 @@
+{
+  "name": "@tanong/scripts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "setup:testnet": "tsx stellar/setup-testnet.ts",
+    "invites": "tsx stellar/make-invites.ts",
+    "evidence": "tsx stellar/export-evidence.ts",
+    "typecheck": "tsc --noEmit",
+    "fund-pool": "tsx stellar/fund-pool.ts",
+    "e2e": "tsx stellar/e2e-student.ts",
+    "send-usdc": "tsx stellar/send-usdc.ts"
+  },
+  "dependencies": {
+    "@stellar/stellar-sdk": "^17.4.0",
+    "@tanong/shared": "workspace:*",
+    "@tanong/wallet": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "tsx": "^4.23.15"
+  }
+}
