@@ -18,5 +18,5 @@ pnpm + Turborepo monorepo. `apps/web` (React 19 PWA), `apps/api` (Express + `@x4
 - Never log or commit secret keys (`S…`), API keys, or `DATABASE_URL`. Only public keys / contract IDs in docs.
 - Treasury/relayer code must check exactly what it signs; no blind signing of client-supplied XDR.
 - Testnet first. Mainnet changes need a PHASE_LOG entry.
-- Use the Stellar Dev skill (`.claude/skills/stellar-dev`) and the OpenZeppelin Stellar skill for contract work.
+- Use the Stellar Dev skill (`stellar-dev` plugin) and the OpenZeppelin Stellar skill for contract work.
 - End of each phase: update `docs/PHASE_LOG.md`.

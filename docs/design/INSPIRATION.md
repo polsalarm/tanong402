@@ -1,6 +1,6 @@
 # Tanong402 — UI inspiration scan
 
-**Researched 28 October 2026.** These are pattern references, not instructions to copy a product's visual identity. Mapping refers to the screen names in [`CLAUDE_DESIGN_PROMPT.md`](../CLAUDE_DESIGN_PROMPT.md). URLs below were opened during this scan.
+**Researched 28 October 2026.** These are pattern references, not instructions to copy a product's visual identity. Mapping refers to the screen names in [`CLAUDE_DESIGN_PROMPT.md`](CLAUDE_DESIGN_PROMPT.md). URLs below were opened during this scan.
 
 ## Fintech and e-wallet references
 

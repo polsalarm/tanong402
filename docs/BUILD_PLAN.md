@@ -1,7 +1,7 @@
 # Tanong402 — Build Plan
 
 **Pay-per-question AI tutor on x402 + Stellar.** Stellar Instawards · 30-day sprint.
-Source of truth: [`Tanong402_Build_Guide.md`](../Tanong402_Build_Guide.md) → [PRD.md](PRD.md). This plan turns the PRD into phases. As-built results go in [PHASE_LOG.md](PHASE_LOG.md).
+Source of truth: [`Tanong402_Build_Guide.md`](Tanong402_Build_Guide.md) → [PRD.md](PRD.md). This plan turns the PRD into phases. As-built results go in [PHASE_LOG.md](PHASE_LOG.md).
 
 ---
 

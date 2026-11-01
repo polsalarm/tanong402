@@ -67,21 +67,20 @@ tanong402/
 ├── docs/
 │   ├── README.md                     index
 │   ├── PRD.md · ARCHITECTURE.md · TECH_STACK.md · MONOREPO.md · BUILD_PLAN.md
-│   ├── CLAUDE_DESIGN_PROMPT.md       prompts to generate the UI in Claude Design
 │   ├── PHASE_LOG.md                  as-built log (contract IDs, tx hashes, versions) — updated each phase
 │   ├── EVIDENCE.md                   Instawards evidence checklist + "what is not real yet"
 │   ├── RUNBOOK.md                    (Phase 6) pause pool, rotate keys, facilitator outage, refill
-│   ├── screenshots/                  ✅ 00-landing.png, 01-ask.png, …
-│   └── evidence/                     ✅ CSV exports, stats snapshots
+│   ├── Tanong402_Build_Guide.md      original brief
+│   ├── design/                       design prompt, inspiration, mascot notes
+│   ├── screenshots/                  testing/ (test + explorer evidence), web/ (app screens)
+│   └── evidence/                     CSV exports, stats snapshots (added at mainnet)
 │
 ├── UI/                               design exports (HTML/PNG from Claude Design), per role + form factor
-│   ├── WEB/{landing,onboard,ask,receipts,wallet,proof}/   ✅
-│   └── MOBILE/{landing,onboard,ask,receipts,wallet}/      ✅
+│   ├── brand/ · mascot/ · splash/   logo, Kuwago mascot and splash boards
+│   └── drafts/                       first yellow-pad draft (superseded)
 │
 ├── assets/                           logo, icon.svg, brand
-├── .claude/skills/stellar-dev/       ✅ project-scoped agent skill (installed in Phase 0)
 ├── CLAUDE.md                         instructions for coding agents working in this repo
-├── Tanong402_Build_Guide.md          original brief
 ├── README.md
 ├── package.json                      root scripts → turbo
 ├── pnpm-workspace.yaml               apps/*, packages/*, examples/*

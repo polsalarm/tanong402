@@ -14,7 +14,7 @@
 
 **Stellar Instawards · 30-day sprint**
 
-**Docs:** [📋 PRD](docs/PRD.md) · [🏗️ Architecture](docs/ARCHITECTURE.md) · [🧰 Tech Stack](docs/TECH_STACK.md) · [📁 Monorepo](docs/MONOREPO.md) · [🗺️ Build Plan](docs/BUILD_PLAN.md) · [🎨 Design Prompt](docs/CLAUDE_DESIGN_PROMPT.md) · [📓 Phase Log](docs/PHASE_LOG.md) · [🏆 Evidence](docs/EVIDENCE.md)
+**Docs:** [📋 PRD](docs/PRD.md) · [🏗️ Architecture](docs/ARCHITECTURE.md) · [🧰 Tech Stack](docs/TECH_STACK.md) · [📁 Monorepo](docs/MONOREPO.md) · [🗺️ Build Plan](docs/BUILD_PLAN.md) · [🎨 Design Prompt](docs/design/CLAUDE_DESIGN_PROMPT.md) · [📓 Phase Log](docs/PHASE_LOG.md) · [🏆 Evidence](docs/EVIDENCE.md)
 
 </div>
 

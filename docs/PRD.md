@@ -2,7 +2,7 @@
 
 **Pay-per-question AI tutor for Filipino students, built on x402 + Stellar.**
 Stellar Instawards · 30-day sprint · Owner: Paul Henry Dacalan (FEU Institute of Technology)
-Source brief: [`Tanong402_Build_Guide.md`](../Tanong402_Build_Guide.md). This PRD turns that brief into product requirements.
+Source brief: [`Tanong402_Build_Guide.md`](Tanong402_Build_Guide.md). This PRD turns that brief into product requirements.
 
 ---
 
