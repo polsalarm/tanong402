@@ -4,7 +4,7 @@
 
 # Tanong402
 
-> Pay-per-question AI tutor for Filipino students. ₱0.30 a question instead of ₱1,000+ a month. Every question is a real USDC micropayment on Stellar, settled through x402.
+> An AI tutor for Filipino students, built on agentic payments. ₱0.29 a question instead of ₱1,000+ a month. Every question is a real USDC micropayment on Stellar, paid automatically through x402, by the app or by any AI agent.
 
 ![Stellar](https://img.shields.io/badge/Stellar-Testnet→Mainnet-00B4D8?style=flat&logo=stellar&logoColor=white)
 ![x402](https://img.shields.io/badge/x402-HTTP%20402%20payments-111827?style=flat)
@@ -20,17 +20,19 @@
 
 ---
 
-> 🚧 **Status: Backend live on Stellar testnet.** Paid questions, sponsored onboarding, and Scholarship Pool claims all settle on-chain ([proof](docs/PHASE_LOG.md#verified-on-testnet)). Web UI (Midnight Silver) in progress.
+> 🚧 **Status: core live on Stellar testnet.** Paid questions, agent payments and sponsored onboarding all settle on-chain ([proof](docs/PHASE_LOG.md#verified-on-testnet)). **Next (Instawards sprint):** iPhone app, earn-to-learn quizzes and streaks, mainnet launch. See [Roadmap](#-roadmap-30-day-instawards-sprint).
 >
-> **Pool contract (testnet):** [`CAVZVSTO…7SCD`](https://stellar.expert/explorer/testnet/contract/CAVZVSTO55EMWLAQGG45B6HFOUPGB4LLIDX3HMW3BCG2QHR3FDMF7SCD)
+> **Reward pool contract (testnet):** [`CAVZVSTO…7SCD`](https://stellar.expert/explorer/testnet/contract/CAVZVSTO55EMWLAQGG45B6HFOUPGB4LLIDX3HMW3BCG2QHR3FDMF7SCD)
 
 ## 🧩 Problem
 AI tutors are priced for people with credit cards and ₱1,000+/month to spare. A Filipino student who needs help with three algebra problems the night before an exam cannot justify a monthly subscription, and has no way to pay for "just this one question."
 
 ## 🌟 Solution
-Pay per question, in centavos. The student types a question, the app pays ~$0.005 USDC (≈ ₱0.30) on Stellar through the x402 protocol, and the tutor answers step by step. No subscription, no card, no seed phrase, and the word "crypto" never shows up in the UI. Credit comes from a **Scholarship Pool** smart contract that sponsors fund and students claim from weekly.
+Pay per question, in centavos, with payments handled by software instead of people. The student types a question, the app's built-in wallet pays ~$0.005 USDC (≈ ₱0.29) on Stellar through the x402 protocol, and the tutor answers step by step in English or Taglish. No subscription, no card, no seed phrase, and the word "crypto" never shows up in the UI. Students see a peso balance and "questions left."
 
-The same `/ask` endpoint is open to **AI agents**: any program with a Stellar wallet can pay per question with no API key and no signup.
+**Agentic payments.** `POST /ask` is a standard x402 endpoint. Any AI agent with a Stellar wallet can pay per question the same way the app does, with no API key and no signup. [`examples/agent-cli`](examples/agent-cli) is an agent that pays for its own questions on testnet today.
+
+**Earn to learn (building now).** Students earn free questions by studying: a Daily Challenge quiz, a 60-second Speed Round, daily streaks and optional rewarded ads. Get a quiz question wrong and "Explain this" opens the tutor on that exact question. Points aren't crypto and can't be cashed out, but every question they pay for is still a real x402 payment on Stellar with a public receipt.
 
 ## 💼 Business model
 
@@ -39,11 +41,12 @@ The same `/ask` endpoint is open to **AI agents**: any program with a Stellar wa
 ### Who pays
 | Payer | How | Why they pay |
 | --- | --- | --- |
-| **Students** | Per question, from their balance | Help exactly when they need it (the night before a quiz) without a monthly bill |
-| **Sponsors**: schools, student orgs, alumni, brands | Fund the on-chain **Scholarship Pool**; enrolled students claim a weekly allowance (default $0.25 = 50 questions) | Fund learning, not a vendor. Every peso is publicly traceable on `/proof` and Stellar Expert |
+| **Students** | Per question, from their balance or with points earned from quizzes and streaks | Help exactly when they need it (the night before a quiz) without a monthly bill |
+| **Advertisers** | Optional rewarded ads, verified server-side. Ad revenue is deposited into the on-chain reward pool that pays for point-funded questions | Reach students at the moment they're studying |
 | **AI agents and developers** | Pay `POST /ask` per call over x402 with their own wallet. No API key, no signup | A tutoring API they can call as a tool and pay for automatically |
+| **Sponsors**: schools, orgs, brands | Top up the reward pool for their students | Fund learning, not a vendor. Every peso is traceable on `/proof` and Stellar Expert |
 
-All three pay the same per-question price. Sponsor money becomes revenue only when students actually ask, so sponsors pay for usage, not seats.
+Everyone pays the same per-question price, and money becomes revenue only when a question is actually asked.
 
 ### Unit economics (measured on testnet, Oct 2026)
 | Per question | Amount | Notes |
@@ -56,7 +59,7 @@ All three pay the same per-question price. Sponsor money becomes revenue only wh
 
 Per-student setup (paid by the treasury, one time):
 - **1.5 XLM** reserve for the account and its USDC trustline. This is a sponsored reserve: it stays locked while the account exists and comes back if the account is closed.
-- About **0.002 XLM** in fees per relayed allowance claim.
+- About **0.002 XLM** in fees per relayed pool claim.
 
 Each answer's real AI cost is logged as `cost_usd`, so margin is tracked per question, not estimated.
 
@@ -97,17 +100,17 @@ Two rules make tiers safe:
 | Setup | Easy | Developer work: keys, code, billing limits | Open the app |
 | Tutor behavior | Generic chat | None unless you build it | Step-by-step, Taglish, won't do graded work |
 | Surprise-bill risk | None | **Yes** (leaked key, runaway loop) | None: exact price shown before every question |
-| Someone else can pay | No | No | **Yes**, through the Scholarship Pool |
+| Free questions | Rate-limited free tier | No | **Yes**: earn them with quizzes and streaks |
 | Usable by AI agents | No | Only your own | Yes: pay per call over x402, no signup |
 
 **Who each option suits:**
 - **Heavy daily users: a subscription.** ₱1,100 ÷ ₱0.29 ≈ **3,800 Standard questions a month**, about 125 a day. Above that a subscription is cheaper, and those users aren't our market.
 - **Developers: their own API key.** Cheaper per answer, but it needs a card, code and care.
-- **Most students: Tanong402.** They study in bursts, ask about **20–200 questions a month (₱6–58 with us)**, often have no credit card, and can be sponsor-funded.
+- **Most students: Tanong402.** They study in bursts, ask about **20–200 questions a month (₱6–58 with us)**, often have no credit card, and can earn questions by studying.
 
 **Our edge isn't reselling models.** Anyone with an API key can undercut a pure reseller. The value is everything around the model:
-- **no-card centavo payments**
-- **sponsor funding** that's visible on-chain
+- **agentic, no-card centavo payments**: software pays per question, never a human with a card
+- **earn-to-learn**: free questions from quizzes and streaks, each still a real on-chain payment
 - a **tutor built for Filipino students**
 - an **API that agents can pay for automatically**
 
@@ -119,14 +122,24 @@ Running costs are mostly hosting: API server ~$7–20/month, while Vercel and Ne
 - **1,000 students × 40 questions a month** = 40,000 questions → **$200 revenue**, ~$15–55 in AI cost, **~$150 gross profit**.
 
 ### Growth levers
-1. **Sponsor partnerships.** A school or brand funds a cohort's weekly allowance, and the funding and every claim are public on-chain. This is our main source of volume.
+1. **Earn loop (building now).** Daily quizzes, streaks and a weekly school leaderboard bring students back every day, and every earned question is a paid question on-chain.
 2. **Agent API.** The same `/ask` endpoint serves AI agents and study apps, paid per call. No sales process needed.
-3. **Peso top-up (next).** GCash/Maya → USDC through an anchor/onramp partner, so students can top up without a sponsor.
+3. **iPhone app (building now).** On the home screen, with streak reminders and the wallet in the Keychain.
 4. **Model menu + Pro tier (live).** Students pick a model in the chat. Auto (the default) keeps cost low, and Pro (₱1.16) adds top models per question.
-5. **School dashboards (later).** Usage by subject and cohort for the teachers and orgs that sponsor students.
+5. **Peso top-up (next).** GCash/Maya → USDC through an anchor/onramp partner, so students can pay with their own pesos.
+6. **School partners (later).** Schools and brands top up the reward pool for their students and see usage by subject.
 
 ### Honest status
-In the pilot, **the team funds the Scholarship Pool**, so student spending is largely our own money coming back to our receiving address. Every payment is a real on-chain settlement, but it isn't outside revenue yet. Real revenue starts with the first outside sponsor, the first paying agent, or peso top-ups. See [`docs/EVIDENCE.md`](docs/EVIDENCE.md).
+In the pilot, **the team funds the reward pool**, so student spending is largely our own money coming back to our receiving address. Every payment is a real on-chain settlement, but it isn't outside revenue yet. Real revenue starts with ad revenue, the first paying agent, an outside sponsor, or peso top-ups. Ad revenue per view is small (roughly one question), and `/proof` will show the real numbers. See [`docs/EVIDENCE.md`](docs/EVIDENCE.md).
+
+## 🗺️ Roadmap: 30-day Instawards sprint
+Already built (testnet): paid `/ask` over x402, the agent CLI, sponsored student accounts, the reward pool contract, the multi-model tutor and the web app.
+
+1. **iPhone app on the App Store.** Capacitor build of the web app, wallet in the Keychain behind Face ID, push notifications for streaks, offline quizzes.
+2. **Earn to learn.** Open sign-up with no invite code, 5 free questions to start, then Aral Points from the Daily Challenge, Speed Round, streaks and optional ads (10 points = 1 question). Anti-abuse: App Attest, server-checked answers, verified ad rewards, daily limits.
+3. **Mainnet launch.** Contract, API and app on Stellar mainnet, spending limits and signing-rule tests, and a public `/proof` page with a Stellar Expert link for every money flow.
+
+Full scope: [`docs/SOW_INSTAWARDS.md`](docs/SOW_INSTAWARDS.md).
 
 ## 🔄 How one question works
 1. Student types a question → app sends `POST /ask`.
@@ -141,7 +154,7 @@ In the pilot, **the team funds the Scholarship Pool**, so student spending is la
 - **API (`apps/api`):** Node 22 + Express + `@x402/express` + `@x402/stellar`
 - **AI:** OpenAI GPT-5 nano/mini, Gemini Flash, Groq (Llama / GPT-OSS) and Claude Haiku behind one router with automatic fallback; students can pick a model in the chat
 - **Payments:** x402 on Stellar, USDC, facilitator-sponsored fees
-- **Contract (`contracts/tanong-pool`):** Soroban Scholarship Pool. Sponsors fund it and enrolled students claim a weekly allowance
+- **Contract (`contracts/tanong-pool`):** Soroban reward pool. Holds sponsor and ad-revenue funds and caps how much goes out each week
 - **Data:** Neon Postgres + Drizzle ORM (no separate auth: identity = wallet address)
 - **Hosting:** Vercel (web) + Render (api)
 
@@ -213,7 +226,7 @@ Unpaid requests get an x402 v2 challenge: `exact` scheme, 50,000 units (0.005 US
 > [`eb65b71a…59b5`](https://stellar.expert/explorer/testnet/tx/eb65b71a5b099313ebbbbc5397b4edf47c3fe3034a79f77c177b0b3a9b3359b5): `USDC.transfer(agent → Tanong402, 50000)`, fee source = facilitator.
 
 ### 3 · Full student journey: 0 XLM in their wallet
-Invite code → treasury-sponsored account + USDC trustline → auto-enrolled in the Scholarship Pool → **relayed** weekly allowance claim (student signs only the auth entry) → second claim refused → paid question.
+Invite code → treasury-sponsored account + USDC trustline → auto-enrolled in the reward pool → **relayed** weekly pool claim (student signs only the auth entry) → second claim refused → paid question.
 
 <p align="center"><img src="docs/screenshots/testing/06-student-e2e.png" width="98%" alt="End-to-end student journey"></p>
 <p align="center">
@@ -227,7 +240,7 @@ Invite code → treasury-sponsored account + USDC trustline → auto-enrolled in
 | `claim(student) → 2500000` (0.25 USDC), submitted by treasury | [`e5140b70…157b`](https://stellar.expert/explorer/testnet/tx/e5140b70135368a707c06632bc499e22a054890ec4daec8d970c911689af157b) |
 | Student's paid question (0.25 → 0.245 USDC) | [`2898ffc9…66d0`](https://stellar.expert/explorer/testnet/tx/2898ffc9054e7c4040a505d4ec5605476c4cd485e9b320117599954d967966d0) |
 
-### 4 · Scholarship Pool contract history
+### 4 · Reward pool contract history
 Constructor → `set_admin` → `fund(2 USDC)` → `enroll` ×4 → `claim` ×2, all visible on-chain.
 
 <p align="center"><img src="docs/screenshots/testing/11-explorer-pool-contract.png" width="98%" alt="tanong-pool contract on Stellar Expert"></p>
